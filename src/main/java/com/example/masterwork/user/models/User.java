@@ -32,7 +32,7 @@ public class User {
   private String lastName;
 
   @NotNull
-  @Column(name = "username")
+  @Column(name = "username", unique = true)
   private String userName;
 
   @NotNull
@@ -49,10 +49,18 @@ public class User {
   @NotNull
   private String address;
 
-  // One-to-many relationship with Order
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Order> orders = new ArrayList<>();
 
-  // getters and setters
+  public User(String firstName, String lastName, String userName,
+              String email, String password, String phoneNumber, String address) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.userName = userName;
+    this.email = email;
+    this.password = password;
+    this.phoneNumber = phoneNumber;
+    this.address = address;
+  }
 }
 
