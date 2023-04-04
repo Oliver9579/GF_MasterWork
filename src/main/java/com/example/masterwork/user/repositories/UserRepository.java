@@ -3,9 +3,11 @@ package com.example.masterwork.user.repositories;
 import com.example.masterwork.user.models.User;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 public interface UserRepository extends CrudRepository<User, Integer> {
 
-  User findByEmail(String email);
+  Optional<User> findByEmail(String email);
 
-  User findByUserName(String username);
+  Optional<User> findByUserName(String username);
 }

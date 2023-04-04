@@ -1,5 +1,6 @@
 package com.example.masterwork.user.services;
 
+import com.example.masterwork.exceptions.UserNotFoundException;
 import com.example.masterwork.user.models.User;
 import com.example.masterwork.user.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getByUsername(String username) {
-    return userRepository.findByUserName(username);
+  public User getByUsername(String username) throws UserNotFoundException {
+    return userRepository.findByUserName(username).orElseThrow(UserNotFoundException::new);
   }
 
   @Override
-  public User getByEmail(String email) {
-    return userRepository.findByEmail(email);
+  public User getByEmail(String email) throws UserNotFoundException {
+    return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
   }
 }

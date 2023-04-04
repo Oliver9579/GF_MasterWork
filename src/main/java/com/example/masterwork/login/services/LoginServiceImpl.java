@@ -4,6 +4,7 @@ import com.example.masterwork.exceptions.UserNotFoundException;
 import com.example.masterwork.exceptions.WrongPasswordException;
 import com.example.masterwork.login.models.LoginDTO;
 import com.example.masterwork.login.models.TokenDTO;
+import com.example.masterwork.security.config.JwtTokenUtil;
 import com.example.masterwork.security.password.PasswordService;
 import com.example.masterwork.user.models.User;
 import com.example.masterwork.user.services.UserService;
