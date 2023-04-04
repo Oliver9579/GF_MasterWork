@@ -27,7 +27,7 @@ public class RegistrationController {
     try {
       User user = registrationService.register(rdto);
       return ResponseEntity.status(201).body(new RegistrationResponseDTO(
-              user.getId(), user.getFirstName() + " " + user.getLastName(), user.getUserName(),
+              user.getId(), user.getFirstName() + " " + user.getLastName(), user.getUsername(),
               user.getPhoneNumber(), user.getAddress()));
     } catch (MissingInputException e) {
       return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage()));
