@@ -30,11 +30,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
           throws ServletException, IOException {
-    if (!isAuthenticatedRequest(request)) {
+    String jwtToken = getJwtToken(request.getHeader("Authorization"));
+    if (jwtToken == null) {
       chain.doFilter(request, response);
       return;
     }
-    String jwtToken = getJwtToken(request.getHeader("Authorization"));
     String username = null;
     try {
       username = jwtTokenUtil.getUsernameFromToken(jwtToken);
@@ -72,11 +72,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     } catch (IOException e) {
       System.err.printf("Unable to send 'Authentication token is invalid!' error response.\n");
     }
-  }
-
-  private boolean isAuthenticatedRequest(HttpServletRequest request) {
-    String path = request.getServletPath();
-    return (path.startsWith("/kingdom") || path.equals("/players"));
   }
 
 }

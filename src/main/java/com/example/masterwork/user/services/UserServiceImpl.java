@@ -2,6 +2,7 @@ package com.example.masterwork.user.services;
 
 import com.example.masterwork.exceptions.UserNotFoundException;
 import com.example.masterwork.user.models.User;
+import com.example.masterwork.user.models.UserDTO;
 import com.example.masterwork.user.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,11 @@ public class UserServiceImpl implements UserService {
   @Override
   public User getByEmail(String email) throws UserNotFoundException {
     return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+  }
+
+  @Override
+  public UserDTO convertUserToDTO(User user) {
+    return new UserDTO(user.getId(), user.getFirstName() + " " + user.getLastName(),
+            user.getUsername(), user.getEmail(), user.getPhoneNumber(), user.getAddress());
   }
 }
