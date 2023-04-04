@@ -40,6 +40,5 @@ public class OrderItem {
           inverseJoinColumns = @JoinColumn(name = "menu_id"))
   private List<Menu> menu;
 
-  // getters and setters
 }
 
