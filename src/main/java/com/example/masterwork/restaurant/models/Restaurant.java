@@ -2,6 +2,10 @@ package com.example.masterwork.restaurant.models;
 
 import com.example.masterwork.menu.models.Menu;
 import com.example.masterwork.order.models.Order;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "restaurants")
 public class Restaurant {
 

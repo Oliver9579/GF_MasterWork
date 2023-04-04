@@ -2,6 +2,10 @@ package com.example.masterwork.menu.models;
 
 import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.restaurant.models.Restaurant;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "menus")
 public class Menu {
 
@@ -23,19 +31,16 @@ public class Menu {
   private String description;
 
   @NotNull
+  private Integer price;
 
-
-  // Many-to-many relationship with Restaurant
   @ManyToMany
   @JoinTable(name = "restaurant_menu",
           joinColumns = @JoinColumn(name = "menu_id"),
           inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
   private List<Restaurant> restaurants = new ArrayList<>();
 
-  // Many-to-many relationship with OrderItem
   @ManyToMany(mappedBy = "menu")
   private List<OrderItem> orderItems = new ArrayList<>();
 
-  // getters and setters
 }
 
