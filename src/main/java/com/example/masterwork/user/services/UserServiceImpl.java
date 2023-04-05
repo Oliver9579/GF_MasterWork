@@ -1,6 +1,8 @@
 package com.example.masterwork.user.services;
 
+import com.example.masterwork.exceptions.ForbiddenActionException;
 import com.example.masterwork.exceptions.UserNotFoundException;
+import com.example.masterwork.order.models.Order;
 import com.example.masterwork.user.models.User;
 import com.example.masterwork.user.models.UserDTO;
 import com.example.masterwork.user.repositories.UserRepository;
@@ -32,5 +34,12 @@ public class UserServiceImpl implements UserService {
   public UserDTO convertUserToDTO(User user) {
     return new UserDTO(user.getId(), user.getFirstName() + " " + user.getLastName(),
             user.getUsername(), user.getEmail(), user.getPhoneNumber(), user.getAddress());
+  }
+
+  @Override
+  public Boolean isUserIdMatching(Integer userId, Order order) {
+    if (userId == null || !userId.equals(order.getUser().getId()))
+      throw new ForbiddenActionException();
+    return true;
   }
 }

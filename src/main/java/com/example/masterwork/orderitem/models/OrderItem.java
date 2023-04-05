@@ -2,6 +2,7 @@ package com.example.masterwork.orderitem.models;
 
 import com.example.masterwork.menu.models.Menu;
 import com.example.masterwork.order.models.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,10 +30,12 @@ public class OrderItem {
   @NotNull
   private Integer price;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "order_id", nullable = false)
   private Order order;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "menu_id", nullable = false)
   private Menu menu;

@@ -1,4 +1,4 @@
-package com.example.masterwork.restaurant;
+package com.example.masterwork.restaurant.controllers;
 
 import com.example.masterwork.restaurant.DTOs.RestaurantDTO;
 import com.example.masterwork.restaurant.DTOs.RestaurantListDTO;

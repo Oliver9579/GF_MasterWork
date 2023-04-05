@@ -15,6 +15,6 @@ public class RestaurantDTO {
   private String name;
   private String phoneNumber;
   private String address;
-  private List<Menu> menus = new ArrayList<>();
+  private List<Menu> menus;
 
 }
