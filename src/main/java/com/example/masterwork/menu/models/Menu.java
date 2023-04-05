@@ -1,5 +1,6 @@
 package com.example.masterwork.menu.models;
 
+import com.example.masterwork.order.models.Order;
 import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.restaurant.models.Restaurant;
 import lombok.AllArgsConstructor;
@@ -39,8 +40,8 @@ public class Menu {
           inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
   private List<Restaurant> restaurants = new ArrayList<>();
 
-  @ManyToMany(mappedBy = "menu")
-  private List<OrderItem> orderItems = new ArrayList<>();
+  @ManyToMany(mappedBy = "menus")
+  private List<Order> orders = new ArrayList<>();
 
 }
 

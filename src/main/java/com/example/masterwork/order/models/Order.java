@@ -1,5 +1,6 @@
 package com.example.masterwork.order.models;
 
+import com.example.masterwork.menu.models.Menu;
 import com.example.masterwork.order.utils.OrderStatus;
 import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.restaurant.models.Restaurant;
@@ -51,6 +52,12 @@ public class Order {
 
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
   private List<OrderItem> orderItems = new ArrayList<>();
+
+  @ManyToMany
+  @JoinTable(name = "order_menu",
+          joinColumns = @JoinColumn(name = "order_id"),
+          inverseJoinColumns = @JoinColumn(name = "menu_id"))
+  private List<Menu> menus = new ArrayList<>();
 
 }
 

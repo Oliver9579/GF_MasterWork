@@ -33,12 +33,9 @@ public class OrderItem {
   @JoinColumn(name = "order_id", nullable = false)
   private Order order;
 
-  @ManyToMany
-  @JoinTable(
-          name = "order_items_menu",
-          joinColumns = @JoinColumn(name = "order_items_id"),
-          inverseJoinColumns = @JoinColumn(name = "menu_id"))
-  private List<Menu> menu;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "menu_id", nullable = false)
+  private Menu menu;
 
 }
 

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS menus
 (
     id              INT PRIMARY KEY AUTO_INCREMENT,
     name            VARCHAR(255) NOT NULL,
-    description     VARCHAR(255) NOT NULL,
+    description     VARCHAR(1500) NOT NULL,
     price           INT          NOT NULL
 );
 
@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS order_items
     quantity    INT    NOT NULL,
     price       INT    NOT NULL,
     order_id    INT    NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders (id)
+    menu_id     INT    NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders (id),
+    FOREIGN KEY (menu_id) REFERENCES menus (id)
 );
 
 CREATE TABLE IF NOT EXISTS restaurant_menu
@@ -56,11 +58,11 @@ CREATE TABLE IF NOT EXISTS restaurant_menu
     FOREIGN KEY (menu_id) REFERENCES menus (id)
 );
 
-CREATE TABLE IF NOT EXISTS order_items_menu
+CREATE TABLE IF NOT EXISTS order_menu
 (
-    order_items_id      INT NOT NULL,
-    menu_id             INT NOT NULL,
-    FOREIGN KEY (order_items_id) REFERENCES order_items (id),
+    order_id     INT NOT NULL,
+    menu_id      INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders (id),
     FOREIGN KEY (menu_id) REFERENCES menus (id)
 );
 
