@@ -2,6 +2,7 @@ package com.example.masterwork.restaurant.models;
 
 import com.example.masterwork.menu.models.Menu;
 import com.example.masterwork.order.models.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,7 @@ public class Restaurant {
   private List<Order> orders = new ArrayList<>();
 
   // Many-to-many relationship with Menu
+  @JsonIgnore
   @ManyToMany(mappedBy = "restaurants")
   private List<Menu> menus = new ArrayList<>();
 

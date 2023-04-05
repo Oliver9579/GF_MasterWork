@@ -1,4 +1,16 @@
 package com.example.masterwork.restaurant.services;
 
-public interface RestaurantService{
+import com.example.masterwork.restaurant.DTOs.RestaurantDTO;
+import com.example.masterwork.restaurant.DTOs.RestaurantListDTO;
+import com.example.masterwork.restaurant.models.Restaurant;
+
+import java.util.List;
+
+public interface RestaurantService {
+
+  RestaurantListDTO getAllRestaurants();
+
+  RestaurantListDTO convertToDTOList(List<Restaurant> restaurants);
+
+  RestaurantDTO getById(Integer id);
 }

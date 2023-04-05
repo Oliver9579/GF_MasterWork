@@ -3,6 +3,7 @@ package com.example.masterwork.menu.models;
 import com.example.masterwork.order.models.Order;
 import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.restaurant.models.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,12 +35,14 @@ public class Menu {
   @NotNull
   private Integer price;
 
+  @JsonIgnore
   @ManyToMany
   @JoinTable(name = "restaurant_menu",
           joinColumns = @JoinColumn(name = "menu_id"),
           inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
   private List<Restaurant> restaurants = new ArrayList<>();
 
+  @JsonIgnore
   @ManyToMany(mappedBy = "menus")
   private List<Order> orders = new ArrayList<>();
 

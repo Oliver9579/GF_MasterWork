@@ -5,6 +5,7 @@ import com.example.masterwork.order.utils.OrderStatus;
 import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.restaurant.models.Restaurant;
 import com.example.masterwork.user.models.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,6 +54,7 @@ public class Order {
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
   private List<OrderItem> orderItems = new ArrayList<>();
 
+  @JsonIgnore
   @ManyToMany
   @JoinTable(name = "order_menu",
           joinColumns = @JoinColumn(name = "order_id"),

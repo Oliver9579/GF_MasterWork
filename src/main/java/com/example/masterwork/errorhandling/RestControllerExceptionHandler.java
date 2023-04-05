@@ -1,6 +1,11 @@
 package com.example.masterwork.errorhandling;
 
+import com.example.masterwork.exceptions.AlreadyTakenException;
+import com.example.masterwork.exceptions.ForbiddenActionException;
+import com.example.masterwork.exceptions.IdNotFoundException;
+import com.example.masterwork.exceptions.UserNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -34,4 +39,20 @@ public class RestControllerExceptionHandler {
   public ResponseEntity<ErrorMessage> handleMissingRequestBody() {
     return ResponseEntity.badRequest().body(new ErrorMessage("Request body is empty."));
   }
+
+  @ExceptionHandler(UserNotFoundException.class)
+  public ResponseEntity<ErrorMessage> handleIncorrectLoginDetails() {
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessage(UserNotFoundException.MESSAGE));
+  }
+
+  @ExceptionHandler(IdNotFoundException.class)
+  public ResponseEntity<ErrorMessage> handleIdNotFound() {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage(IdNotFoundException.MESSAGE));
+  }
+
+  @ExceptionHandler(ForbiddenActionException.class)
+  public ResponseEntity<ErrorMessage> handleForbiddenAction() {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessage(ForbiddenActionException.MESSAGE));
+  }
+
 }
