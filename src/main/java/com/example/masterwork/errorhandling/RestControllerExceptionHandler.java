@@ -1,9 +1,6 @@
 package com.example.masterwork.errorhandling;
 
-import com.example.masterwork.exceptions.AlreadyTakenException;
-import com.example.masterwork.exceptions.ForbiddenActionException;
-import com.example.masterwork.exceptions.IdNotFoundException;
-import com.example.masterwork.exceptions.UserNotFoundException;
+import com.example.masterwork.exceptions.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +51,11 @@ public class RestControllerExceptionHandler {
   @ExceptionHandler(ForbiddenActionException.class)
   public ResponseEntity<ErrorMessage> handleForbiddenAction() {
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessage(ForbiddenActionException.MESSAGE));
+  }
+
+  @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+  public ResponseEntity<ErrorMessage> handleNewInformationIsOccupiedException() {
+    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new ErrorMessage(UpdateUserNewInformationIsOccupiedException.MESSAGE));
   }
 
 }

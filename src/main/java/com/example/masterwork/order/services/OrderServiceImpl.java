@@ -4,6 +4,7 @@ import com.example.masterwork.exceptions.IdNotFoundException;
 import com.example.masterwork.order.DTOs.OrderDTO;
 import com.example.masterwork.order.models.Order;
 import com.example.masterwork.order.repositories.OrderRepository;
+import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.orderitem.services.OrderItemService;
 import com.example.masterwork.user.services.UserService;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
   public OrderDTO convertToOrderDTO(Order order, Integer userId) {
     userService.isUserIdMatching(userId, order);
     return new OrderDTO(order.getId(),
-            order.getOrderItems().stream().mapToInt(value -> value.getPrice()).sum(),
+            order.getOrderItems().stream().mapToInt(OrderItem::getPrice).sum(),
             order.getDeliveryAddress(), order.getStatus(), order.getCreated(),
             order.getOrderItems().stream()
                     .map(orderItem -> orderItemService.convertToOrderItemDTO(orderItem))

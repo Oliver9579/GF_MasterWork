@@ -12,10 +12,8 @@ import javax.validation.constraints.Size;
 public class RegistrationDTO {
 
   @NotBlank
-  @JsonAlias("firstname")
   private String firstName;
   @NotBlank
-  @JsonAlias("lastname")
   private String lastName;
   @NotBlank
   private String username;
@@ -26,7 +24,6 @@ public class RegistrationDTO {
   @Size(min = 8, message = "Password must have 8 characters.")
   private String password;
   @NotBlank
-  @JsonAlias("phonenumber")
   private String phoneNumber;
   @NotBlank
   private String address;

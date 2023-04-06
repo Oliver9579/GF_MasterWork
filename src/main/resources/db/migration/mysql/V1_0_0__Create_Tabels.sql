@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users
     first_name      VARCHAR(255) NOT NULL,
     last_name       VARCHAR(255) NOT NULL,
     username        VARCHAR(255) NOT NULL UNIQUE,
-    email           VARCHAR(255),
+    email           VARCHAR(255) UNIQUE,
     password        VARCHAR(255) NOT NULL,
     phone_number    VARCHAR(255) NOT NULL,
     address         VARCHAR(255) NOT NULL
