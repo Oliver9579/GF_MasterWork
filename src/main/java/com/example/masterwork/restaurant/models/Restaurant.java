@@ -35,15 +35,12 @@ public class Restaurant {
   @NotNull
   private String address;
 
-  // One-to-many relationship with Order
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Order> orders = new ArrayList<>();
 
-  // Many-to-many relationship with Menu
   @JsonIgnore
-  @ManyToMany(mappedBy = "restaurants")
+  @ManyToMany(mappedBy = "restaurants", cascade = CascadeType.ALL)
   private List<Menu> menus = new ArrayList<>();
 
-  // getters and setters
 }
 

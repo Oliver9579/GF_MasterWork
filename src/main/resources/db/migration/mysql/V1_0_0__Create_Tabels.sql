@@ -58,12 +58,5 @@ CREATE TABLE IF NOT EXISTS restaurant_menu
     FOREIGN KEY (menu_id) REFERENCES menus (id)
 );
 
-CREATE TABLE IF NOT EXISTS order_menu
-(
-    order_id     INT NOT NULL,
-    menu_id      INT NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders (id),
-    FOREIGN KEY (menu_id) REFERENCES menus (id)
-);
 
 

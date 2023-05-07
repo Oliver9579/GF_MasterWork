@@ -1,7 +1,8 @@
 package com.example.masterwork.registration.dtos;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import lombok.*;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -38,6 +39,5 @@ public class RegistrationDTO {
     this.phoneNumber = phoneNumber;
     this.address = address;
   }
-
 
 }

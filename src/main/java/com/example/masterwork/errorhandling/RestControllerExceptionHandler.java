@@ -10,7 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +37,11 @@ public class RestControllerExceptionHandler {
     return ResponseEntity.badRequest().body(new ErrorMessage("Request body is empty."));
   }
 
+  @ExceptionHandler(WrongPasswordException.class)
+  public ResponseEntity<ErrorMessage> handleLoginOrRegistrationIncorrect() {
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessage(WrongPasswordException.MESSAGE));
+  }
+
   @ExceptionHandler(UserNotFoundException.class)
   public ResponseEntity<ErrorMessage> handleIncorrectLoginDetails() {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessage(UserNotFoundException.MESSAGE));
@@ -53,9 +57,24 @@ public class RestControllerExceptionHandler {
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessage(ForbiddenActionException.MESSAGE));
   }
 
-  @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+  @ExceptionHandler(UpdateUserNewInformationIsOccupiedException.class)
   public ResponseEntity<ErrorMessage> handleNewInformationIsOccupiedException() {
     return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new ErrorMessage(UpdateUserNewInformationIsOccupiedException.MESSAGE));
+  }
+
+  @ExceptionHandler(MissingOrderItemsException.class)
+  public ResponseEntity<ErrorMessage> handleOrderItemIsEmptyInNewOrder() {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(MissingOrderItemsException.MESSAGE));
+  }
+
+  @ExceptionHandler(StatusDoesNotExist.class)
+  public ResponseEntity<ErrorMessage> handleStatusDoesNotExist() {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(StatusDoesNotExist.MESSAGE));
+  }
+
+  @ExceptionHandler(StatusDoesNotBeTheSameException.class)
+  public ResponseEntity<ErrorMessage> handleStatusDoesNotChange() {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(StatusDoesNotBeTheSameException.MESSAGE));
   }
 
 }

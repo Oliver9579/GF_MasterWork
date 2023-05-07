@@ -3,8 +3,6 @@ package com.example.masterwork.registration.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 @AllArgsConstructor
 public class RegistrationResponseDTO {

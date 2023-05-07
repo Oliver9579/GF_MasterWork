@@ -1,6 +1,5 @@
 package com.example.masterwork.menu.models;
 
-import com.example.masterwork.order.models.Order;
 import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.restaurant.models.Restaurant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -43,8 +42,8 @@ public class Menu {
   private List<Restaurant> restaurants = new ArrayList<>();
 
   @JsonIgnore
-  @ManyToMany(mappedBy = "menus")
-  private List<Order> orders = new ArrayList<>();
+  @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+  private List<OrderItem> orders = new ArrayList<>();
 
 }
 

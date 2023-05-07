@@ -6,4 +6,7 @@ import com.example.masterwork.orderitem.models.OrderItem;
 public interface OrderItemService {
 
   OrderItemDTO convertToOrderItemDTO(OrderItem orderItem);
+
+  OrderItem save(OrderItem orderItem);
+
 }

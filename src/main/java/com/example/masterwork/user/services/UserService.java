@@ -5,13 +5,13 @@ import com.example.masterwork.order.models.Order;
 import com.example.masterwork.user.models.User;
 import com.example.masterwork.user.models.UserDTO;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-
 public interface UserService {
 
   User saveUser(User user);
 
   User getByUsername(String username) throws UserNotFoundException;
+
+  User getById(Integer userId);
 
   User getByEmail(String email) throws UserNotFoundException;
 
@@ -19,5 +19,4 @@ public interface UserService {
 
   Boolean isUserIdMatching(Integer userId, Order order);
 
-  UserDTO updateUser(User user, User newUserInformation) throws SQLIntegrityConstraintViolationException;
 }

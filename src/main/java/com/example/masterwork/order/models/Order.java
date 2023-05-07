@@ -6,10 +6,7 @@ import com.example.masterwork.orderitem.models.OrderItem;
 import com.example.masterwork.restaurant.models.Restaurant;
 import com.example.masterwork.user.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
+@ToString
 public class Order {
 
   @Id
@@ -54,15 +52,29 @@ public class Order {
   private Restaurant restaurant;
 
   @JsonIgnore
-  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<OrderItem> orderItems = new ArrayList<>();
 
-  @JsonIgnore
-  @ManyToMany
-  @JoinTable(name = "order_menu",
-          joinColumns = @JoinColumn(name = "order_id"),
-          inverseJoinColumns = @JoinColumn(name = "menu_id"))
-  private List<Menu> menus = new ArrayList<>();
+  public Order(Integer totalAmount, String deliveryAddress, OrderStatus status, Long created, User user,
+               Restaurant restaurant) {
+    this.totalAmount = totalAmount;
+    this.deliveryAddress = deliveryAddress;
+    this.status = status;
+    this.created = created;
+    this.user = user;
+    this.restaurant = restaurant;
+    this.orderItems = new ArrayList<>();
+  }
 
+  public Order(Integer id, Integer totalAmount, String deliveryAddress,
+               OrderStatus status, Long created, User user, Restaurant restaurant) {
+    this.id = id;
+    this.totalAmount = totalAmount;
+    this.deliveryAddress = deliveryAddress;
+    this.status = status;
+    this.created = created;
+    this.user = user;
+    this.restaurant = restaurant;
+  }
 }
 

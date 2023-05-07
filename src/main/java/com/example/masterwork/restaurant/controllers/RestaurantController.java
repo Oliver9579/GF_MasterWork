@@ -22,7 +22,7 @@ public class RestaurantController {
 
   @GetMapping("restaurants/{id}")
   public ResponseEntity<RestaurantDTO> getRestaurantsById(@PathVariable Integer id) {
-    return ResponseEntity.ok().body(restaurantService.getById(id));
+    return ResponseEntity.ok().body(restaurantService.convertToRestaurantDTO(restaurantService.getById(id)));
   }
 
 }

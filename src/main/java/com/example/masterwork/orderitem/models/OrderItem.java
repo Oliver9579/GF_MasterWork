@@ -3,14 +3,10 @@ package com.example.masterwork.orderitem.models;
 import com.example.masterwork.menu.models.Menu;
 import com.example.masterwork.order.models.Order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "order_items")
+@ToString
 public class OrderItem {
 
   @Id
@@ -39,6 +36,13 @@ public class OrderItem {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "menu_id", nullable = false)
   private Menu menu;
+
+  public OrderItem(Integer quantity, Integer price, Menu menu) {
+    this.quantity = quantity;
+    this.price = price;
+    this.menu = menu;
+    this.order = new Order();
+  }
 
 }
 

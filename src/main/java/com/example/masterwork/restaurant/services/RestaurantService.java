@@ -12,5 +12,8 @@ public interface RestaurantService {
 
   RestaurantListDTO convertToDTOList(List<Restaurant> restaurants);
 
-  RestaurantDTO getById(Integer id);
+  Restaurant getById(Integer id);
+
+  RestaurantDTO convertToRestaurantDTO(Restaurant restaurant);
+
 }

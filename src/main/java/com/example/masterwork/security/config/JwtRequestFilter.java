@@ -1,6 +1,7 @@
 package com.example.masterwork.security.config;
 
 import com.example.masterwork.errorhandling.ErrorMessage;
+import com.example.masterwork.exceptions.UserNotFoundException;
 import com.example.masterwork.user.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -27,6 +28,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
 
+  private ObjectMapper objectMapper = new ObjectMapper();
+
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
           throws ServletException, IOException {
@@ -44,17 +47,26 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null
             && !jwtTokenUtil.isTokenExpired(jwtToken)) {
-      setupSecurityContext(username, jwtToken, request);
+      setupSecurityContext(username, jwtToken, request, response);
     }
     chain.doFilter(request, response);
   }
 
-  private void setupSecurityContext(String username, String jwtToken, HttpServletRequest request) {
-    UserDetails userDetails = this.userService.getByUsername(username);
-    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-            userDetails, jwtTokenUtil.getAllClaimsFromToken(jwtToken), userDetails.getAuthorities());
-    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-    SecurityContextHolder.getContext().setAuthentication(authToken);
+  private void setupSecurityContext(String username, String jwtToken, HttpServletRequest request,
+                                    HttpServletResponse response) throws IOException {
+    try {
+      UserDetails userDetails = this.userService.getByUsername(username);
+      UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+              userDetails, jwtTokenUtil.getAllClaimsFromToken(jwtToken), userDetails.getAuthorities());
+      authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+      SecurityContextHolder.getContext().setAuthentication(authToken);
+    } catch (UserNotFoundException e) {
+      response.setContentType("application/json");
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      response.getOutputStream()
+              .println(objectMapper.writeValueAsString(new ErrorMessage(e.getMessage())));
+    }
+
   }
 
   private String getJwtToken(String requestTokenHeader) {

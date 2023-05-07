@@ -30,13 +30,14 @@ public class RestaurantServiceImpl implements RestaurantService {
   }
 
   @Override
-  public RestaurantDTO getById(Integer id) {
-    return convertToRestaurantDTO(restaurantRepository.findById(id).orElseThrow(IdNotFoundException::new));
+  public Restaurant getById(Integer id) {
+    return restaurantRepository.findById(id).orElseThrow(IdNotFoundException::new);
   }
 
-
-  private RestaurantDTO convertToRestaurantDTO(Restaurant restaurant) {
+  @Override
+  public RestaurantDTO convertToRestaurantDTO(Restaurant restaurant) {
     return new RestaurantDTO(restaurant.getId(), restaurant.getName(), restaurant.getPhoneNumber(),
             restaurant.getAddress(), restaurant.getMenus());
   }
+
 }

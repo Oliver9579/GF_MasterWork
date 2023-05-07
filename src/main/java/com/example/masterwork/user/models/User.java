@@ -1,7 +1,10 @@
 package com.example.masterwork.user.models;
 
 import com.example.masterwork.order.models.Order;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,7 +19,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -64,6 +66,18 @@ public class User implements UserDetails {
     this.address = address;
   }
 
+  public User(Integer id, String firstName, String lastName, String userName,
+              String email, String password, String phoneNumber, String address) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.userName = userName;
+    this.email = email;
+    this.password = password;
+    this.phoneNumber = phoneNumber;
+    this.address = address;
+  }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return null;
@@ -93,5 +107,6 @@ public class User implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
 }
 
